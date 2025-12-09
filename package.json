@@ -28,6 +28,7 @@
     "libraries/pgsql",
     "libraries/pgclient",
     "libraries/pgmigration",
+    "providers/raw/raw-pg",
     "providers/local/local-common",
     "providers/local/local-scheduler",
     "providers/local/local-database",
