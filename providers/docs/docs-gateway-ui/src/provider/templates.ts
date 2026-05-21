@@ -1,3 +1,5 @@
+export const SCALAR_CDN_VERSION = '1.34.7';
+
 export const scalarTemplate = `
 <!doctype html>
 <html>
@@ -9,7 +11,7 @@ export const scalarTemplate = `
 
   <body>
     <div id="app"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@${SCALAR_CDN_VERSION}"></script>
     <script>
       Scalar.createApiReference('#app', {
         content: __SPEC__,
