@@ -97,4 +97,12 @@ export interface HttpRoute<T extends HttpRequest, U extends AuthRequest> extends
    * - May increase cold‑start latency.
    */
   readonly vpc?: boolean;
+
+  /**
+   * Tags used to group the route in generated documentation.
+   *
+   * - Used by OpenAPI to group operations under named sections.
+   * - Multiple tags are allowed; each becomes a group in the UI.
+   */
+  readonly tags?: string[];
 }

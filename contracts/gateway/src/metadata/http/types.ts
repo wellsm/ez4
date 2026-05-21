@@ -83,6 +83,7 @@ export type HttpRoute = HttpDefaults & {
   disabled?: boolean;
   cors?: boolean;
   vpc?: boolean;
+  tags?: string[];
 };
 
 export type HttpDefaults = {

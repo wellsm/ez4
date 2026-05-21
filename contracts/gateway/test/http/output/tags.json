@@ -1,0 +1,34 @@
+{
+  "@variables": {
+    "type": "@ez4/common",
+    "name": "@variables",
+    "context": {}
+  },
+  "TestService": {
+    "type": "@ez4/http",
+    "name": "TestService",
+    "context": {},
+    "variables": {},
+    "services": {},
+    "routes": [
+      {
+        "path": "GET /test-route-1",
+        "handler": {
+          "name": "testRoute",
+          "file": "test/http/input/output-tags.ts",
+          "position": [
+            13,
+            1
+          ],
+          "response": {
+            "status": 204
+          }
+        },
+        "tags": [
+          "Users",
+          "Public"
+        ]
+      }
+    ]
+  }
+}

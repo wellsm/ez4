@@ -208,7 +208,8 @@ const getTypeFromMembers = (
         break;
       }
 
-      case 'files': {
+      case 'files':
+      case 'tags': {
         route[member.name] = getPropertyStringList(member);
         break;
       }
