@@ -1,5 +1,6 @@
 import type { HttpService } from '@ez4/gateway/library';
 
+import { getPropertyName } from '@ez4/schema';
 import { isEmptyObject } from '@ez4/utils';
 
 import { getIndentedOutput } from '../utils/format';
@@ -12,15 +13,16 @@ export const getResponseOutput = (service: HttpService) => {
 
   for (const route of service.routes) {
     const { preferences, handler } = route;
-    const { name, response } = handler;
+    const { response } = handler;
 
-    if (!response.body || output[name]) {
+    const namingStyle = preferences?.namingStyle ?? defaultPreferences?.namingStyle;
+    const schemaName = getPropertyName(handler.name, namingStyle);
+
+    if (!response.body || output[schemaName]) {
       continue;
     }
 
-    const namingStyle = preferences?.namingStyle ?? defaultPreferences?.namingStyle;
-
-    output[name] = getAnySchemaOutput(response.body, namingStyle);
+    output[schemaName] = getAnySchemaOutput(response.body, namingStyle);
   }
 
   if (isEmptyObject(output)) {

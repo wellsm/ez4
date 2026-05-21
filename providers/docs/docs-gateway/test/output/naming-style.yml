@@ -24,7 +24,7 @@ paths:
           description: "Successful response."
   /route_b:
     get:
-      operationId: testHandler
+      operationId: TestHandler
       parameters:
         - name: FooBar
           in: query

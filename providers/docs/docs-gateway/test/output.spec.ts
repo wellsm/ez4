@@ -1,4 +1,5 @@
 import { buildMetadata } from '@ez4/project/library';
+import { registerTriggers } from '@ez4/gateway/library';
 
 import { equal, deepEqual } from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -6,6 +7,8 @@ import { describe, it } from 'node:test';
 
 import { getGatewayServices } from '../src/utils/service';
 import { OpenApiGenerator } from '../src/generator/oas';
+
+registerTriggers();
 
 const testFile = (fileName: string, overwrite = false) => {
   const sourceFile = `./test/input/output-${fileName}.ts`;
@@ -33,6 +36,7 @@ describe('gateway documentation (open api output)', () => {
   it('assert :: put route', () => testFile('put'));
   it('assert :: delete route', () => testFile('delete'));
   it('assert :: naming style', () => testFile('naming-style'));
+  it('assert :: tags', () => testFile('tags'));
   it('assert :: operation', () => testFile('operation'));
   it('assert :: auth header', () => testFile('auth-header'));
   it('assert :: auth query', () => testFile('auth-query'));

@@ -33,13 +33,20 @@ export const getServiceRoutesOutput = (service: HttpService) => {
 const getRouteOutput = (route: HttpRoute, namingStyle?: NamingStyle) => {
   const output = [];
 
-  const { name, authorizer, handler } = route;
+  const { name, authorizer, handler, tags } = route;
   const { request } = handler;
 
-  output.push(`operationId: ${getNameOutput(name ?? handler.name)}`);
+  const operationId = getPropertyName(name ?? handler.name, namingStyle);
+  const schemaName = getPropertyName(handler.name, namingStyle);
+
+  output.push(`operationId: ${getNameOutput(operationId)}`);
 
   if (handler.description) {
     output.push(`summary: "${getMultilineOutput(handler.description)}"`);
+  }
+
+  if (tags?.length) {
+    output.push('tags:', ...getIndentedOutput(tags.map((tag) => `- ${getNameOutput(tag)}`)));
   }
 
   if (authorizer?.request) {
@@ -50,7 +57,7 @@ const getRouteOutput = (route: HttpRoute, namingStyle?: NamingStyle) => {
     const parameters = [];
 
     if (request.headers) {
-      parameters.push(...getParametersOutput('header', request.headers));
+      parameters.push(...getParametersOutput('header', request.headers, namingStyle));
     }
 
     if (request.parameters) {
@@ -66,11 +73,11 @@ const getRouteOutput = (route: HttpRoute, namingStyle?: NamingStyle) => {
     }
 
     if (request.body) {
-      output.push('requestBody:', ...getIndentedOutput(getBodyOutput('requestSchemes', handler.name)));
+      output.push('requestBody:', ...getIndentedOutput(getBodyOutput('requestSchemes', schemaName)));
     }
   }
 
-  output.push('responses:', ...getIndentedOutput(getResponseOutput(handler.name, handler.response)));
+  output.push('responses:', ...getIndentedOutput(getResponseOutput(schemaName, handler.response)));
 
   return output;
 };
